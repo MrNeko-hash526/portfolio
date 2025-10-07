@@ -10,6 +10,7 @@ const Hero = ({ isDark }: HeroProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
+  const [bgImage, setBgImage] = useState<string | null>(null);
 
   const roles = [
     'Full-Stack Developer',
@@ -42,6 +43,21 @@ const Hero = ({ isDark }: HeroProps) => {
     return () => clearTimeout(timer);
   }, [text, isDeleting, loopNum, typingSpeed]);
 
+  // Choose hero background image: prefer /hero.png, fallback to /hero.jpg if not present
+  useEffect(() => {
+    let mounted = true;
+    const tryPng = new Image();
+    tryPng.onload = () => { if (mounted) setBgImage('/hero.png'); };
+    tryPng.onerror = () => {
+      const tryJpg = new Image();
+      tryJpg.onload = () => { if (mounted) setBgImage('/hero.jpg'); };
+      tryJpg.onerror = () => { if (mounted) setBgImage(null); };
+      tryJpg.src = '/hero.jpg';
+    };
+    tryPng.src = '/hero.png';
+    return () => { mounted = false; };
+  }, []);
+
   const handleDownloadResume = () => {
     // Create a link element and trigger download
     const link = document.createElement('a');
@@ -53,11 +69,18 @@ const Hero = ({ isDark }: HeroProps) => {
   };
 
   return (
-    <section id="hero" className={`relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-500 ${
-      isDark 
-        ? 'bg-[rgb(33,33,36)]' 
-        : 'bg-gradient-to-br from-blue-50 via-white to-cyan-50'
-    }`}>
+    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden transition-colors duration-500">
+      {/* Background image (if available) */}
+      {bgImage && (
+        <div
+          className="absolute inset-0 bg-center bg-cover bg-no-repeat"
+          style={{ backgroundImage: `url('${bgImage}')` }}
+          aria-hidden
+        />
+      )}
+
+      {/* Adaptive overlay to keep text readable on top of image */}
+      <div className={`absolute inset-0 pointer-events-none ${isDark ? 'bg-[rgb(33,33,36)]/70' : 'bg-[rgb(33,33,36)]/30'}`} />
       {/* Subtle Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className={`absolute w-96 h-96 -top-48 -left-48 rounded-full blur-3xl animate-pulse-slow ${
@@ -78,44 +101,41 @@ const Hero = ({ isDark }: HeroProps) => {
           </div>
 
           {/* Name */}
-          <h1 className={`text-5xl md:text-7xl font-bold mb-6 animate-fade-in ${
-            isDark 
-              ? 'bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent'
-              : 'text-gray-900'
-          }`}>
+          <h1
+            className={`text-5xl md:text-7xl font-bold mb-6 animate-fade-in ${
+              isDark
+                ? 'bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 bg-clip-text text-transparent'
+                : 'text-blue-700'
+            }`}
+            style={!isDark ? { textShadow: '0 6px 18px rgba(8,30,52,0.18)' } : undefined}
+          >
             Harshit Raj
           </h1>
 
           {/* Typing Animation */}
           <div className="h-12 md:h-14 mb-6 animate-slide-up animation-delay-500">
-            <p className={`text-xl md:text-2xl font-medium ${
-              isDark ? 'text-cyan-400' : 'text-blue-600'
-            }`}>
+            <p
+              className={`text-xl md:text-2xl font-medium ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}
+              style={!isDark ? { textShadow: '0 4px 12px rgba(8,30,52,0.12)' } : undefined}
+            >
               {text}
-              <span className={`inline-block w-0.5 h-6 ml-1 animate-blink ${
-                isDark ? 'bg-cyan-400' : 'bg-blue-600'
-              }`}></span>
+              <span className={`inline-block w-0.5 h-6 ml-1 animate-blink ${isDark ? 'bg-cyan-400' : 'bg-blue-600'}`}></span>
             </p>
           </div>
 
           {/* Description */}
-          <p className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-1000 ${
-            isDark ? 'text-gray-300' : 'text-gray-700'
-          }`}>
-            Passionate about building <span className={`font-semibold ${
-              isDark ? 'text-cyan-400' : 'text-blue-600'
-            }`}>full-stack web applications</span> with expertise in <span className={`font-semibold ${
-              isDark ? 'text-cyan-400' : 'text-blue-600'
-            }`}>Python, React, and Node.js</span>
+          <p
+            className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-1000 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
+            style={!isDark ? { textShadow: '0 3px 10px rgba(8,30,52,0.08)' } : undefined}
+          >
+            Passionate about building <span className={`font-semibold ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>full-stack web applications</span> with expertise in <span className={`font-semibold ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>Python, React, and Node.js</span>
           </p>
           
           {/* Key Highlights */}
           <div className={`flex flex-wrap gap-3 justify-center mb-12 animate-slide-up animation-delay-1000 ${
             isDark ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${
-              isDark ? 'bg-[rgb(45,45,48)] border-gray-700' : 'bg-gray-50 border-gray-200'
-            }`}>
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${isDark ? 'bg-[rgb(45,45,48)] border-gray-700' : 'bg-white/80 backdrop-blur-sm border-gray-200'}`}>
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <span className="text-sm font-medium">Available for Opportunities</span>
             </div>
@@ -147,11 +167,7 @@ const Hero = ({ isDark }: HeroProps) => {
             
             <a
               href="#contact"
-              className={`group flex items-center gap-2 px-8 py-4 rounded-lg border-2 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold text-base ${
-                isDark 
-                  ? 'bg-transparent text-cyan-400 border-cyan-500 hover:bg-cyan-500 hover:text-white'
-                  : 'bg-white text-blue-600 border-blue-600 hover:bg-blue-600 hover:text-white'
-              }`}
+              className={`group flex items-center gap-2 px-8 py-4 rounded-lg border-2 transform hover:scale-105 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl font-semibold text-base ${isDark ? 'bg-transparent text-cyan-400 border-cyan-500 hover:bg-cyan-500 hover:text-white' : 'bg-white text-blue-700 border-blue-700 hover:bg-blue-700 hover:text-white'}`}
             >
               <span>Get In Touch</span>
             </a>

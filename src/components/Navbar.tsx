@@ -69,7 +69,7 @@ const Navbar = ({ isDark, toggleDark }: NavbarProps) => {
             href="#hero"
             onClick={(e) => handleNavClick(e, '#hero')}
             className={`text-2xl font-bold transition-colors duration-300 ${
-              isDark ? 'text-white' : 'text-gray-900'
+              isDark ? 'text-white' : (isScrolled ? 'text-gray-900' : 'text-white')
             }`}
           >
             HR
@@ -83,11 +83,12 @@ const Navbar = ({ isDark, toggleDark }: NavbarProps) => {
                 onClick={(e) => handleNavClick(e, link.href)}
                 className={`text-sm font-medium transition-colors duration-300 ${
                   activeSection === link.href.substring(1)
-                    ? isDark ? 'text-cyan-400' : 'text-blue-600'
+                    ? isDark ? 'text-cyan-400' : (isScrolled ? 'text-blue-600' : 'text-white')
                     : isDark 
                     ? 'text-gray-300 hover:text-cyan-400' 
-                    : 'text-gray-700 hover:text-blue-600'
+                    : (isScrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-blue-100')
                 }`}
+                style={!isDark && !isScrolled ? { textShadow: '0 2px 6px rgba(0,0,0,0.6)' } : undefined}
               >
                 {link.label}
               </a>
