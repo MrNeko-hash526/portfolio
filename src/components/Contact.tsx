@@ -40,68 +40,35 @@ const Contact = ({ isDark }: ContactProps) => {
               I'm always open to new opportunities and collaborations. Feel free to reach out!
             </p>
 
-            <div className={`rounded-2xl p-8 md:p-12 shadow-lg ${
-              isDark ? 'bg-[rgb(45,45,48)]' : 'bg-gradient-to-br from-blue-50 to-cyan-50'
-            }`}>
-              <div className="grid md:grid-cols-3 gap-6">
-                <a
-                  href="mailto:rajharshit789@gmail.com"
-                  className={`flex flex-col items-center gap-4 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group ${
-                    isDark ? 'bg-[rgb(55,55,58)]' : 'bg-white'
-                  }`}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Mail className="w-8 h-8 text-white" />
+            <div>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <a href="mailto:rajharshit789@gmail.com" className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-cyan-500 text-white">
+                    <Mail className="w-6 h-6" />
                   </div>
-                  <div className="text-center">
-                    <h3 className={`font-semibold mb-1 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>Email</h3>
-                    <p className={`text-sm break-all ${
-                      isDark ? 'text-gray-400' : 'text-gray-600'
-                    }`}>rajharshit789@gmail.com</p>
+                  <div>
+                    <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>rajharshit789@gmail.com</div>
+                    <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Email</div>
                   </div>
                 </a>
 
-                <a
-                  href="https://linkedin.com/in/harshit-raj-a93497248"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex flex-col items-center gap-4 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group ${
-                    isDark ? 'bg-[rgb(55,55,58)]' : 'bg-white'
-                  }`}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Linkedin className="w-8 h-8 text-white" />
+                <a href="https://linkedin.com/in/harshit-raj-a93497248" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-600 to-blue-700 text-white">
+                    <Linkedin className="w-6 h-6" />
                   </div>
-                  <div className="text-center">
-                    <h3 className={`font-semibold mb-1 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>LinkedIn</h3>
-                    <p className={`text-sm ${
-                      isDark ? 'text-gray-400' : 'text-gray-600'
-                    }`}>Connect with me</p>
+                  <div>
+                    <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>Connect on LinkedIn</div>
+                    <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>linkedin.com/in/harshit-raj-a93497248</div>
                   </div>
                 </a>
 
-                <a
-                  href="https://github.com/MrNeko-hash526"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex flex-col items-center gap-4 p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group ${
-                    isDark ? 'bg-[rgb(55,55,58)]' : 'bg-white'
-                  }`}
-                >
-                  <div className="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <Github className="w-8 h-8 text-white" />
+                <a href="https://github.com/MrNeko-hash526" target="_blank" rel="noopener noreferrer" className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900 text-white">
+                    <Github className="w-6 h-6" />
                   </div>
-                  <div className="text-center">
-                    <h3 className={`font-semibold mb-1 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>GitHub</h3>
-                    <p className={`text-sm ${
-                      isDark ? 'text-gray-400' : 'text-gray-600'
-                    }`}>Check my code</p>
+                  <div>
+                    <div className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>GitHub</div>
+                    <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>github.com/MrNeko-hash526</div>
                   </div>
                 </a>
               </div>

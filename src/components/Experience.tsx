@@ -1,4 +1,4 @@
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase } from 'lucide-react';
 
 interface ExperienceProps {
   isDark: boolean;
@@ -43,60 +43,39 @@ const Experience = ({ isDark }: ExperienceProps) => {
           </h2>
           <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 mx-auto mb-16 rounded-full"></div>
 
-          <div className="space-y-8">
+          <div className="divide-y">
             {experiences.map((exp, index) => (
-              <div
-                key={index}
-                className={`rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDark ? 'bg-[rgb(45,45,48)]' : 'bg-white'
-                }`}
-              >
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                  <div className="flex items-start gap-4 mb-4 md:mb-0">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Briefcase className="w-6 h-6 text-white" />
+              <div key={index} className={`py-6 ${index !== experiences.length - 1 ? 'border-b' : ''} ${isDark ? 'border-[rgba(255,255,255,0.03)]' : 'border-[rgba(15,23,42,0.04)]'}`}>
+                <div className="flex items-start gap-4 mb-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className={`text-xl md:text-2xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{exp.role}</h3>
+                        <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>{exp.company}</p>
+                      </div>
+                      <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{exp.period}</div>
                     </div>
-                    <div>
-                      <h3 className={`text-xl md:text-2xl font-bold ${
-                        isDark ? 'text-white' : 'text-gray-900'
-                      }`}>{exp.role}</h3>
-                      <p className={`text-lg font-medium ${
-                        isDark ? 'text-gray-300' : 'text-gray-700'
-                      }`}>{exp.company}</p>
+
+                    <ul className={`mt-3 space-y-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {exp.description.map((item, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-cyan-400">▹</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {exp.technologies.map((tech, i) => (
+                        <span key={i} className={`px-2 py-1 text-xs rounded-full font-medium ${isDark ? 'bg-[rgba(255,255,255,0.03)] text-cyan-300' : 'bg-[rgba(59,130,246,0.06)] text-blue-700'}`}>
+                          {tech}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                  <div className={`flex items-center gap-2 md:ml-auto ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    <Calendar className="w-5 h-5" />
-                    <span className="text-sm font-medium">{exp.period}</span>
-                  </div>
-                </div>
-
-                <ul className="space-y-2 mb-6 ml-16">
-                  {exp.description.map((item, i) => (
-                    <li key={i} className={`flex items-start ${
-                      isDark ? 'text-gray-300' : 'text-gray-700'
-                    }`}>
-                      <span className="text-cyan-400 mr-2">▹</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="flex flex-wrap gap-2 ml-16">
-                  {exp.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className={`px-3 py-1 text-sm rounded-full font-medium ${
-                        isDark 
-                          ? 'bg-blue-900/30 text-cyan-400' 
-                          : 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'
-                      }`}
-                    >
-                      {tech}
-                    </span>
-                  ))}
                 </div>
               </div>
             ))}

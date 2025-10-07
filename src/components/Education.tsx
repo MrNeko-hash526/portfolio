@@ -37,48 +37,28 @@ const Education = ({ isDark }: EducationProps) => {
 
           <div className="space-y-6">
             {education.map((edu, index) => (
-              <div
-                key={index}
-                className={`rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
-                  isDark ? 'bg-[rgb(45,45,48)]' : 'bg-white'
-                }`}
-              >
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
-                      <GraduationCap className="w-8 h-8 text-white" />
-                    </div>
+              <div key={index} className={`py-4 ${index !== education.length - 1 ? 'border-b' : ''} ${isDark ? 'border-[rgba(255,255,255,0.03)]' : 'border-[rgba(15,23,42,0.04)]'}`}>
+                <div className="flex items-start gap-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center">
+                    <GraduationCap className="w-6 h-6 text-white" />
                   </div>
-
                   <div className="flex-1">
-                    <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
+                    <div className="flex items-start justify-between">
                       <div>
-                        <h3 className={`text-2xl font-bold mb-1 ${
-                          isDark ? 'text-white' : 'text-gray-900'
-                        }`}>{edu.degree}</h3>
-                        <p className={`text-lg font-medium ${
-                          isDark ? 'text-gray-300' : 'text-gray-700'
-                        }`}>{edu.institution}</p>
+                        <h3 className={`text-xl font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>{edu.degree}</h3>
+                        <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>{edu.institution}</p>
                       </div>
-                      <span className={`mt-2 md:mt-0 px-4 py-1 text-sm rounded-full font-medium self-start ${
-                        isDark 
-                          ? 'bg-blue-900/30 text-cyan-400' 
-                          : 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'
-                      }`}>
-                        {edu.type}
-                      </span>
+                      <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{edu.period}</div>
                     </div>
 
-                    <div className={`flex flex-wrap gap-4 ${
-                      isDark ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
+                    <div className={`flex flex-wrap gap-4 mt-2 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                       <div className="flex items-center gap-2">
-                        <MapPin className="w-5 h-5" />
-                        <span>{edu.location}</span>
+                        <MapPin className="w-4 h-4" />
+                        <span className="text-sm">{edu.location}</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-5 h-5" />
-                        <span>{edu.period}</span>
+                        <Calendar className="w-4 h-4" />
+                        <span className="text-sm">{edu.period}</span>
                       </div>
                     </div>
                   </div>

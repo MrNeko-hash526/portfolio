@@ -11,6 +11,7 @@ const Hero = ({ isDark }: HeroProps) => {
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
   const [bgImage, setBgImage] = useState<string | null>(null);
+  const overImage = !!bgImage;
 
   const roles = [
     'Full-Stack Developer',
@@ -73,8 +74,8 @@ const Hero = ({ isDark }: HeroProps) => {
       {/* Background image (if available) */}
       {bgImage && (
         <div
-          className="absolute inset-0 bg-center bg-cover bg-no-repeat"
-          style={{ backgroundImage: `url('${bgImage}')` }}
+          className="absolute inset-0 bg-top bg-cover bg-no-repeat"
+          style={{ backgroundImage: `url('${bgImage}')`, backgroundPosition: 'top center', backgroundSize: 'cover' }}
           aria-hidden
         />
       )}
@@ -91,23 +92,18 @@ const Hero = ({ isDark }: HeroProps) => {
         }`}></div>
       </div>
 
-      <div className="container mx-auto px-6 py-20 relative z-10">
+  <div className="container mx-auto px-6 pt-28 md:pt-32 pb-20 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Avatar */}
-          <div className="inline-block mb-8 animate-fade-in-scale">
-            <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 flex items-center justify-center text-white text-4xl font-bold shadow-2xl transform hover:scale-110 transition-all duration-500">
-              HR
-            </div>
-          </div>
+          {/* Avatar removed to keep hero clean */}
 
           {/* Name */}
           <h1
             className={`text-5xl md:text-7xl font-bold mb-6 animate-fade-in ${
               isDark
                 ? 'bg-gradient-to-r from-cyan-300 via-cyan-200 to-cyan-300 bg-clip-text text-transparent'
-                : 'text-blue-700'
+                : (overImage ? 'text-white' : 'text-blue-700')
             }`}
-            style={!isDark ? { textShadow: '0 6px 18px rgba(8,30,52,0.18)' } : undefined}
+            style={!isDark && overImage ? { textShadow: '0 2px 6px rgba(0,0,0,0.6)' } : (!isDark ? { textShadow: '0 6px 18px rgba(8,30,52,0.18)' } : undefined)}
           >
             Harshit Raj
           </h1>
@@ -115,27 +111,27 @@ const Hero = ({ isDark }: HeroProps) => {
           {/* Typing Animation */}
           <div className="h-12 md:h-14 mb-6 animate-slide-up animation-delay-500">
             <p
-              className={`text-xl md:text-2xl font-medium ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}
-              style={!isDark ? { textShadow: '0 4px 12px rgba(8,30,52,0.12)' } : undefined}
+              className={`text-xl md:text-2xl font-medium ${isDark ? 'text-cyan-400' : (overImage ? 'text-white' : 'text-blue-600')}`}
+              style={!isDark && overImage ? { textShadow: '0 2px 6px rgba(0,0,0,0.6)' } : (!isDark ? { textShadow: '0 4px 12px rgba(8,30,52,0.12)' } : undefined)}
             >
               {text}
-              <span className={`inline-block w-0.5 h-6 ml-1 animate-blink ${isDark ? 'bg-cyan-400' : 'bg-blue-600'}`}></span>
+              <span className={`inline-block w-0.5 h-6 ml-1 animate-blink ${isDark ? 'bg-cyan-400' : (overImage ? 'bg-white' : 'bg-blue-600')}`}></span>
             </p>
           </div>
 
           {/* Description */}
           <p
-            className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-1000 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}
-            style={!isDark ? { textShadow: '0 3px 10px rgba(8,30,52,0.08)' } : undefined}
+            className={`text-lg md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-up animation-delay-1000 ${isDark ? 'text-gray-300' : (overImage ? 'text-white' : 'text-gray-700')}`}
+            style={!isDark && overImage ? { textShadow: '0 2px 6px rgba(0,0,0,0.5)' } : (!isDark ? { textShadow: '0 3px 10px rgba(8,30,52,0.08)' } : undefined)}
           >
-            Passionate about building <span className={`font-semibold ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>full-stack web applications</span> with expertise in <span className={`font-semibold ${isDark ? 'text-cyan-400' : 'text-blue-600'}`}>Python, React, and Node.js</span>
+            Passionate about building <span className={`font-semibold ${isDark ? 'text-cyan-400' : (overImage ? 'text-white' : 'text-blue-600')}`}>full-stack web applications</span> with expertise in <span className={`font-semibold ${isDark ? 'text-cyan-400' : (overImage ? 'text-white' : 'text-blue-600')}`}>Python, React, and Node.js</span>
           </p>
           
           {/* Key Highlights */}
           <div className={`flex flex-wrap gap-3 justify-center mb-12 animate-slide-up animation-delay-1000 ${
             isDark ? 'text-gray-400' : 'text-gray-600'
           }`}>
-            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${isDark ? 'bg-[rgb(45,45,48)] border-gray-700' : 'bg-white/80 backdrop-blur-sm border-gray-200'}`}>
+            <div className={`flex items-center gap-2 px-4 py-2 rounded-full border ${isDark ? 'bg-[rgb(45,45,48)] border-gray-700' : (overImage ? 'bg-white/10 border-white/20 text-white' : 'bg-white/80 backdrop-blur-sm border-gray-200')}`}>
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
               <span className="text-sm font-medium">Available for Opportunities</span>
             </div>
@@ -182,7 +178,7 @@ const Hero = ({ isDark }: HeroProps) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                 isDark 
                   ? 'text-gray-400 hover:text-blue-400'
-                  : 'text-gray-600 hover:text-blue-600'
+                  : (overImage ? 'text-white hover:text-white/90' : 'text-gray-600 hover:text-blue-600')
               }`}
               title="Connect on LinkedIn"
             >
@@ -197,7 +193,7 @@ const Hero = ({ isDark }: HeroProps) => {
               className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-300 hover:scale-110 ${
                 isDark 
                   ? 'text-gray-400 hover:text-gray-200'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : (overImage ? 'text-white hover:text-white/90' : 'text-gray-600 hover:text-gray-900')
               }`}
               title="View GitHub Profile"
             >

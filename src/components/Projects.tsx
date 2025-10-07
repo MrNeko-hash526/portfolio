@@ -1,4 +1,4 @@
-import { ExternalLink, Github, Lock } from 'lucide-react';
+import { Github, Lock } from 'lucide-react';
 
 interface ProjectsProps {
   isDark: boolean;
@@ -55,97 +55,59 @@ const Projects = ({ isDark }: ProjectsProps) => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div
+              <article
                 key={index}
-                className={`group rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden ${
-                  isDark ? 'bg-[rgb(45,45,48)] border border-gray-700' : 'bg-white border border-gray-100'
+                className={`flex flex-col rounded-lg overflow-hidden transition-transform duration-200 hover:-translate-y-1 ${
+                  isDark
+                    ? 'bg-[rgb(45,45,48)] border border-[rgba(255,255,255,0.04)]'
+                    : 'bg-white border border-gray-100'
                 }`}
               >
-                <div className={`h-48 bg-gradient-to-br ${project.gradient} relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-white text-6xl font-bold opacity-20">
-                      {project.title.split(' ').map(word => word[0]).join('')}
-                    </div>
+                {/* Header strip */}
+                <div className={`h-36 flex items-center p-4 ${project.gradient}`} style={{ backgroundImage: `linear-gradient(135deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05))`, backgroundBlendMode: 'overlay' }}>
+                  <div className="w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center bg-black/20 text-white mr-4">
+                    <span className="font-bold">{project.title.split(' ').map(w => w[0]).join('')}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{project.title}</h3>
+                    <p className="text-xs text-white/80 mt-1">{project.technologies.slice(0,3).join(' • ')}</p>
                   </div>
                 </div>
 
-                <div className="p-6">
-                  <h3 className={`text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors duration-300 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>
-                    {project.title}
-                  </h3>
-                  <p className={`text-sm mb-4 leading-relaxed ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
-                    {project.description}
-                  </p>
+                {/* Body */}
+                <div className="p-5 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p className={`text-sm mb-4 ${isDark ? 'text-gray-200' : 'text-gray-700'}`}>{project.description}</p>
 
-                  {project.credentials && (
-                    <div className={`mb-4 p-3 rounded-lg ${
-                      isDark ? 'bg-amber-900/20 border border-amber-700' : 'bg-amber-50 border border-amber-200'
-                    }`}>
-                      <div className="flex items-center gap-2 mb-1">
-                        <Lock className={`w-4 h-4 ${
-                          isDark ? 'text-amber-400' : 'text-amber-600'
-                        }`} />
-                        <span className={`text-xs font-semibold ${
-                          isDark ? 'text-amber-300' : 'text-amber-800'
-                        }`}>Demo Credentials</span>
+                    {project.credentials && (
+                      <div className={`inline-flex items-center gap-2 text-xs font-mono px-2 py-1 rounded ${isDark ? 'bg-amber-900/10 text-amber-300' : 'bg-amber-50 text-amber-800'}`}> 
+                        <Lock className="w-4 h-4" />
+                        <span>{project.credentials}</span>
                       </div>
-                      <p className={`text-xs font-mono ${
-                        isDark ? 'text-amber-400' : 'text-amber-700'
-                      }`}>{project.credentials}</p>
-                    </div>
-                  )}
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.slice(0, 3).map((tech, i) => (
-                      <span
-                        key={i}
-                        className={`px-2 py-1 text-xs rounded-full font-medium ${
-                          isDark 
-                            ? 'bg-blue-900/30 text-cyan-400' 
-                            : 'bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700'
-                        }`}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <span className={`px-2 py-1 text-xs rounded-full font-medium ${
-                        isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'
-                      }`}>
-                        +{project.technologies.length - 3} more
-                      </span>
                     )}
                   </div>
 
-                  <div className="flex gap-3">
-                    {project.liveDemo && (
-                      <a
-                        href={project.liveDemo}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 text-sm font-medium"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                        <span>Live Demo</span>
+                  <div className="mt-5">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {project.technologies.map((tech, i) => (
+                        <span key={i} className={`text-xs px-2 py-1 rounded-md ${isDark ? 'bg-[rgba(255,255,255,0.03)] text-cyan-300' : 'bg-[rgba(59,130,246,0.06)] text-blue-700'}`}>{tech}</span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      {project.liveDemo && (
+                        <a href={project.liveDemo} target="_blank" rel="noopener noreferrer" className="flex-1 inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 transition-all">
+                          Live Demo
+                        </a>
+                      )}
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className={`${project.liveDemo ? 'flex-shrink-0' : 'flex-1'} inline-flex items-center justify-center gap-2 px-3 py-2 rounded-md text-sm font-medium ${isDark ? 'bg-gray-900 text-white hover:bg-gray-800' : 'bg-gray-900 text-white hover:bg-gray-800'} transition-all`}>
+                        <Github className="w-4 h-4" />
+                        {!project.liveDemo && <span>View Code</span>}
                       </a>
-                    )}
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${project.liveDemo ? 'flex-shrink-0' : 'flex-1'} flex items-center justify-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-300 text-sm font-medium`}
-                    >
-                      <Github className="w-4 h-4" />
-                      {!project.liveDemo && <span>GitHub</span>}
-                    </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
